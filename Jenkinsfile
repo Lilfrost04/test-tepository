@@ -2,10 +2,13 @@ pipeline {
     agent {
         dockerfile true
     }
+    environment { 
+        CC = 'clang'
+    }
     stages {
         stage('Test') {
             steps {
-                sh 'node --version'
+                sh 'printenv'
             }
         }
     }
