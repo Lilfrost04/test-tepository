@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'printenv'
+                sh 'echo ${JOB_NAME}'
             }
         }
     }
