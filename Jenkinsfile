@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'echo login: ${USERNAME} pass: ${PASSWORD}'
+                sh 'echo login: ${USERNAME_USR} pass: ${PASSWORD_PSW}'
+                sh 'uptime'
             }
         }
     }
