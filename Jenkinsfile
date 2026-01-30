@@ -2,6 +2,7 @@ pipeline {
     agent {
         dockerfile true
     }
+    triggers { pollSCM('* * * * *') }
     environment {
         USERNAME = credentials('my_credentials')
         PASSWORD = credentials('my_credentials')
