@@ -3,15 +3,22 @@ pipeline {
         dockerfile true
     }
     triggers { pollSCM('* * * * *') }
-    environment {
-        USERNAME = credentials('my_credentials')
-        PASSWORD = credentials('my_credentials')
-    }
     stages {
-        stage('Test') {
+        stage('docker login') {
             steps {
-                sh 'echo login: ${USERNAME_USR} pass: ${PASSWORD_PSW}'
-                sh 'uptime'
+                withCredentials([usernamePassword(credentialsId: 'docker_hub_creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                sh 'docker login --username ${USERNAME} --password ${PASSWORD}'
+                }
+            }
+        }
+        stage('build docker image') {
+            steps {
+                sh 'docker build -t lilfrost20/testapp:latest .'
+            }
+        }
+        stage('push docker image') {
+            steps {
+                sh 'docker push lilfrost20/testapp:latest .'
             }
         }
     }
