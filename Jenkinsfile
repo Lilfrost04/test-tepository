@@ -3,8 +3,7 @@ pipeline {
     triggers { pollSCM('* * * * *') }
     stages {
         stage('docker login') {
-            checkout scm
-
+    
             docker.withRegistry('https://hub.docker.com', 'docker_hub_creds') {
                 def customImage = docker.build("lilfrost20:${env.BUILD_ID}")
                 customImage.push()
